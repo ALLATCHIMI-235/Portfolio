@@ -18,21 +18,21 @@ const I18N = {
     "nav.projects": "Projets",
     "nav.contact": "Contact",
     "nav.cv": "Télécharger CV",
-    "hero.available": "Disponible · Alternance Fro'Marsac SAVENCIA",
+    "hero.available": "Ouvert aux opportunités · Alternance Fro'Marsac SAVENCIA",
     "hero.greeting": "Bonjour, je suis",
-    "hero.title": "Data Scientist<br>&amp; Industrial<br><em>Analytics Engineer</em>",
+    "hero.title": "Data Scientist<br>Industriel<br><em>Junior</em>",
     "hero.desc": "J'aime transformer la donnée brute en décisions concrètes. Mon parcours mêle statistiques, machine learning et excellence industrielle, au service de problèmes réels — actuellement en alternance chez Fro'Marsac (groupe SAVENCIA).",
     "hero.cta1": "Voir mes projets",
     "hero.cta2": "Me contacter",
     "hero.stat1": "Projets data",
     "hero.stat2": "Données traitées",
-    "hero.stat3": "MSID · UPPA",
+    "hero.stat3": "MSID · 2024—2026",
     "about.eyebrow": "Qui je suis",
     "about.title": "À propos de moi",
     "about.cardTitle": "Formation académique",
     "about.cardSub": "Master MSID · UPPA",
-    "about.p1": "Étudiant en <strong>Master MSID</strong> (Méthodes Stochastiques et Informatiques pour la Décision) à l'Université de Pau et des Pays de l'Adour, je me passionne pour la transformation des données complexes en informations exploitables. Mon parcours mêle <strong>statistiques avancées</strong>, <strong>machine learning</strong> et <strong>développement d'applications data</strong>.",
-    "about.p2": "Je suis aujourd'hui en <strong>alternance au sein du service Excellence Industrielle de Fro'Marsac</strong> (groupe SAVENCIA), où je conçois des dashboards d'aide à la décision sur la consommation industrielle et le suivi des Nettoyages en Place (NEP).",
+    "about.p1": "<strong>Data Scientist Industriel Junior</strong> en formation Master MSID (Méthodes Stochastiques et Informatiques pour la Décision) à l'Université de Pau et des Pays de l'Adour, je me passionne pour la transformation des données complexes en informations exploitables. Mon parcours mêle <strong>statistiques avancées</strong>, <strong>machine learning</strong> et <strong>développement d'applications data</strong>.",
+    "about.p2": "Aujourd'hui en <strong>alternance au sein du service Excellence Industrielle de Fro'Marsac</strong> (groupe SAVENCIA), mes missions couvrent la chaîne data complète :<br><br>• <strong>Structurer et organiser</strong> les données brutes issues des automates et systèmes industriels<br>• <strong>Analyser</strong> les données pour extraire des insights actionnables<br>• <strong>Créer des visualisations</strong> claires et impactantes pour les décideurs<br>• <strong>Programmer des scripts</strong> pour automatiser les processus métier<br>• <strong>Développer l'interopérabilité</strong> entre les différents systèmes (ERP, GMAO, automates)<br>• <strong>Utiliser l'IA</strong> pour améliorer l'analyse et la prédiction des dérives industrielles",
     "about.t1.title": "Master MSID — en cours",
     "about.t1.meta": "Méthodes Stochastiques et Informatiques pour la Décision · UPPA",
     "about.t1.h1": "Bourse Académie des Talents E2S — 5 000 €",
@@ -75,6 +75,7 @@ const I18N = {
     "contact.sub": "Une question, un projet ? N'hésitez pas à me contacter — je réponds sous 24h.",
     "contact.infoTitle": "Informations de contact",
     "contact.location": "Localisation",
+    "contact.locationValue": "Périgueux · Mobile partout en France",
     "contact.phone": "Téléphone",
     "contact.formTitle": "Envoyez-moi un message",
     "contact.formSub": "Décrivez votre projet ou votre demande, je vous répondrai rapidement.",
@@ -87,11 +88,12 @@ const I18N = {
     "contact.error": "Une erreur est survenue. Réessayez ou écrivez-moi directement à abderamaneherendjimi@gmail.com",
     "contact.required": "Merci de remplir tous les champs.",
     "contact.invalidEmail": "Adresse email invalide.",
-    "footer.text": "© 2026 Herendji Allatchimi Abderamane · Pau, France · Data Scientist",
+    "footer.text": "© 2026 Herendji Allatchimi Abderamane · Périgueux, France · Data Scientist Industriel Junior",
     "partners.eyebrow": "Mes affiliations",
     "partners.title": "Institutions & partenaires",
     "partners.sub": "Les organisations qui ont rythmé mon parcours académique et professionnel.",
     "partners.uppa": "Université de formation",
+    "partners.liuppa": "Stage de recherche · TELESCOL",
     "partners.e2s": "Bourse Académie des Talents",
     "partners.savencia": "Alternance · Excellence Industrielle",
     "partners.total": "Formation GRIF · Visite RAM",
@@ -125,21 +127,21 @@ const I18N = {
     "nav.projects": "Projects",
     "nav.contact": "Contact",
     "nav.cv": "Download CV",
-    "hero.available": "Available · Apprentice at Fro'Marsac SAVENCIA",
+    "hero.available": "Open to opportunities · Apprentice at Fro'Marsac SAVENCIA",
     "hero.greeting": "Hello, I'm",
-    "hero.title": "Data Scientist<br>&amp; Industrial<br><em>Analytics Engineer</em>",
+    "hero.title": "Junior<br>Industrial<br><em>Data Scientist</em>",
     "hero.desc": "I love turning raw data into concrete decisions. My background combines statistics, machine learning and industrial excellence, applied to real-world problems — currently apprentice at Fro'Marsac (SAVENCIA group).",
     "hero.cta1": "See my projects",
     "hero.cta2": "Get in touch",
     "hero.stat1": "Data projects",
     "hero.stat2": "Records processed",
-    "hero.stat3": "MSID · UPPA",
+    "hero.stat3": "MSID · 2024—2026",
     "about.eyebrow": "Who I am",
     "about.title": "About me",
     "about.cardTitle": "Academic background",
     "about.cardSub": "Master MSID · UPPA",
-    "about.p1": "I'm currently studying for a <strong>Master's in Stochastic Methods and Computer Science for Decision-Making (MSID)</strong> at the University of Pau, with a strong passion for transforming complex data into actionable insights. My background combines <strong>advanced statistics</strong>, <strong>machine learning</strong> and <strong>data application development</strong>.",
-    "about.p2": "I'm currently doing my <strong>apprenticeship within the Industrial Excellence team at Fro'Marsac</strong> (SAVENCIA group), where I design decision-support dashboards for industrial consumption monitoring and Cleaning-in-Place (CIP) tracking.",
+    "about.p1": "<strong>Junior Industrial Data Scientist</strong> currently studying for a Master MSID (Stochastic Methods and Computer Science for Decision-Making) at the University of Pau, with a strong passion for transforming complex data into actionable insights. My background combines <strong>advanced statistics</strong>, <strong>machine learning</strong> and <strong>data application development</strong>.",
+    "about.p2": "Currently doing my <strong>apprenticeship within the Industrial Excellence team at Fro'Marsac</strong> (SAVENCIA group), my missions cover the full data chain:<br><br>• <strong>Structure and organize</strong> raw data from PLCs and industrial systems<br>• <strong>Analyze</strong> data to extract actionable insights<br>• <strong>Create clear and impactful visualizations</strong> for decision-makers<br>• <strong>Program scripts</strong> to automate business processes<br>• <strong>Develop interoperability</strong> between different systems (ERP, CMMS, PLCs)<br>• <strong>Use AI</strong> to improve analysis and prediction of industrial drifts",
     "about.t1.title": "Master MSID — ongoing",
     "about.t1.meta": "Stochastic Methods and Computer Science for Decision-Making · UPPA",
     "about.t1.h1": "E2S Talents' Academy Scholarship — €5,000",
@@ -182,6 +184,7 @@ const I18N = {
     "contact.sub": "A question, a project? Feel free to reach out — I reply within 24h.",
     "contact.infoTitle": "Contact information",
     "contact.location": "Location",
+    "contact.locationValue": "Périgueux · Available across France",
     "contact.phone": "Phone",
     "contact.formTitle": "Send me a message",
     "contact.formSub": "Describe your project or request, I'll get back to you quickly.",
@@ -194,11 +197,12 @@ const I18N = {
     "contact.error": "An error occurred. Please retry or email me directly at abderamaneherendjimi@gmail.com",
     "contact.required": "Please fill all fields.",
     "contact.invalidEmail": "Invalid email address.",
-    "footer.text": "© 2026 Herendji Allatchimi Abderamane · Pau, France · Data Scientist",
+    "footer.text": "© 2026 Herendji Allatchimi Abderamane · Périgueux, France · Junior Industrial Data Scientist",
     "partners.eyebrow": "My affiliations",
     "partners.title": "Institutions & partners",
     "partners.sub": "The organizations that shaped my academic and professional journey.",
     "partners.uppa": "Home university",
+    "partners.liuppa": "Research internship · TELESCOL",
     "partners.e2s": "Talents' Academy scholarship",
     "partners.savencia": "Apprenticeship · Industrial Excellence",
     "partners.total": "GRIF training · RAM visit",
@@ -279,6 +283,7 @@ function renderTechMarquee() {
 const PARTNERS_LIST = [
   { url: 'https://www.univ-pau.fr/', logo: 'assets/images/logo-uppa.png', name: 'UPPA', roleKey: 'partners.uppa', logoClass: '' },
   { url: 'https://organisation.univ-pau.fr/fr/grands-projets/l-i-site-e2s-solutions-pour-l-energie-et-l-environnement.html', logo: 'assets/images/logo-e2s.png', name: 'E2S UPPA', roleKey: 'partners.e2s', logoClass: 'partner-logo-dark', highlight: true },
+  { url: 'https://liuppa.univ-pau.fr/', logo: 'assets/images/logo-liuppa.png', name: 'LIUPPA', roleKey: 'partners.liuppa', logoClass: '' },
   { url: 'https://www.savencia.com/', logo: 'assets/images/logo-savencia.png', name: 'SAVENCIA', roleKey: 'partners.savencia', logoClass: '' },
   { url: 'https://totalenergies.com/', logo: 'assets/images/logo-totalenergies.png', name: 'TotalEnergies', roleKey: 'partners.total', logoClass: '' },
   { url: 'https://grif.totalenergies.com/', logo: 'assets/images/logo-grif.png', name: 'GRIF', roleKey: 'partners.grif', logoClass: '' },
@@ -292,14 +297,11 @@ function renderPartners() {
   if (!track) return;
   const items = [...PARTNERS_LIST, ...PARTNERS_LIST].map(p => {
     const logoContent = p.text
-      ? `<span class="serif" style="font-size:22px;font-weight:600;color:${p.textColor};letter-spacing:0.02em;">${p.text}</span>`
-      : `<img src="${p.logo}" alt="${p.name}">`;
-    return `<a href="${p.url}" target="_blank" rel="noopener" class="partner-card${p.highlight ? ' partner-card-highlight' : ''}">
+      ? `<span class="serif partner-text-logo" style="color:${p.textColor};">${p.text}</span>`
+      : `<img src="${p.logo}" alt="${p.name}" loading="lazy">`;
+    const role = I18N[currentLang][p.roleKey] || '';
+    return `<a href="${p.url}" target="_blank" rel="noopener" class="partner-card${p.highlight ? ' partner-card-highlight' : ''}" title="${p.name} — ${role}" aria-label="${p.name} : ${role}">
       <div class="partner-logo ${p.logoClass}">${logoContent}</div>
-      <div class="partner-info">
-        <div class="partner-name">${p.name}</div>
-        <div class="partner-role" data-i18n-runtime="${p.roleKey}">${I18N[currentLang][p.roleKey] || ''}</div>
-      </div>
     </a>`;
   }).join('');
   track.innerHTML = items;
@@ -1131,9 +1133,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('themeToggle').onclick = () => {
     const cur = document.documentElement.getAttribute('data-theme');
     const next = cur === 'light' ? 'dark' : 'light';
+    // Active la transition globale synchronisée juste pour le switch
+    document.documentElement.classList.add('theme-transitioning');
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     updateThemeIcon(next);
+    // Désactive après l'animation pour ne pas polluer les hovers/animations
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 400);
   };
   const savedLang = localStorage.getItem('lang') || 'fr';
   currentLang = savedLang;
