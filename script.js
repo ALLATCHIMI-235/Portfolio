@@ -2,11 +2,18 @@
    PORTFOLIO HERENDJI ALLATCHIMI ABDERAMANE - v3
    ============================================================ */
 
+/* ====================== EMAIL SERVICES CONFIG ====================== */
+// Priorité 1 : Web3Forms (configuré, fiable, pas de CORS)
+const WEB3FORMS_ACCESS_KEY = 'cfde7ed3-3b69-492c-86ed-36febc03446f';
+
+// Priorité 2 (fallback) : EmailJS (nécessite config si activé)
 const EMAILJS_CONFIG = {
   publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
   serviceId: 'YOUR_SERVICE_ID',
   templateId: 'YOUR_TEMPLATE_ID'
 };
+
+// Priorité 3 (fallback) : FormSubmit (instable, gardé en backup)
 const FORMSUBMIT_EMAIL = 'abderamaneherendjimi@gmail.com';
 
 /* ====================== I18N ====================== */
@@ -1072,10 +1079,14 @@ function setupContactForm() {
   const status = document.getElementById('formStatus');
   const submitBtn = document.getElementById('formSubmit');
   if (!form) return;
+
+  // Détection du service à utiliser, par priorité
+  let provider = 'web3forms';  // défaut : Web3Forms (fiable, configuré)
   let useEmailJS = false;
   if (window.emailjs && EMAILJS_CONFIG.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
-    try { emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey }); useEmailJS = true; } catch (e) {}
+    try { emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey }); useEmailJS = true; provider = 'emailjs'; } catch (e) {}
   }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const t = I18N[currentLang];
@@ -1095,49 +1106,49 @@ function setupContactForm() {
     showStatus(status, t['contact.sending'], 'loading');
 
     try {
-      if (useEmailJS) {
+      if (provider === 'emailjs') {
         await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
           from_name: data.name, from_email: data.email,
           subject: data.subject, message: data.message,
           to_email: 'abderamaneherendjimi@gmail.com'
         });
-        showStatus(status, t['contact.success'], 'success');
-        form.reset();
       } else {
-        // FormSubmit AJAX — version simplifiée pour éviter les bugs récents
-        // 1. JSON est plus fiable que FormData pour FormSubmit AJAX
-        // 2. Pas de _template (cause des rejets)
-        // 3. Pas de _replyto (déprécié, l'email est pris du champ "email")
+        // === Web3Forms (provider par défaut) ===
+        // - Pas de preflight CORS (Web3Forms accepte les "simple requests")
+        // - Pas d'activation requise
+        // - Quota : 250 messages/mois gratuits
+        // Doc : https://docs.web3forms.com/
         const payload = {
+          access_key: WEB3FORMS_ACCESS_KEY,
           name: data.name,
           email: data.email,
-          subject: data.subject,
+          subject: `[Portfolio] ${data.subject}`,
           message: data.message,
-          _subject: `[Portfolio] ${data.subject}`,
-          _captcha: 'false'
+          from_name: 'Portfolio Herendji',
+          replyto: data.email
         };
-        const resp = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-        const responseText = await resp.text();
-        let json = {};
-        try { json = JSON.parse(responseText); } catch (e) {
-          console.warn('[Contact] Response non-JSON:', responseText.slice(0, 200));
+        let resp;
+        try {
+          resp = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+        } catch (networkErr) {
+          console.error('[Contact] Network failure:', networkErr);
+          throw new Error('Erreur réseau. Vérifiez votre connexion ou contactez-moi par email.');
         }
-        if (!resp.ok || json.success === 'false' || json.success === false) {
-          console.error('[Contact] FormSubmit error:', { status: resp.status, body: json, raw: responseText.slice(0, 300) });
+        const json = await resp.json().catch(() => ({}));
+        if (!resp.ok || json.success !== true) {
+          console.error('[Contact] Web3Forms error:', { status: resp.status, body: json });
           throw new Error(json.message || `HTTP ${resp.status}`);
         }
-        // Première soumission : FormSubmit retourne success=true + message d'activation
-        // Soumissions suivantes (après activation) : message direct dans la boîte
-        showStatus(status, t['contact.success'], 'success');
-        form.reset();
       }
+      showStatus(status, t['contact.success'], 'success');
+      form.reset();
     } catch (err) {
       console.error('[Contact form] Error:', err);
       const errMsg = (err && err.message) ? ` (${err.message})` : '';
