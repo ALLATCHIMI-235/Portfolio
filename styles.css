@@ -3,12 +3,34 @@
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.6; overflow-x: hidden; position: relative; min-height: 100vh; }
 
-/* Transition globale pour le switch de thème — appliquée en permanence sur les propriétés
-   qui changent avec le thème. Ne touche PAS aux transforms/opacity (hovers, reveals au scroll). */
-*, *::before, *::after {
-  transition-property: background-color, color, border-color, fill, stroke;
-  transition-duration: 0.25s;
+/* === Transition de thème instantanée ===
+   Technique View Transitions API (Chrome 111+, Safari 18+, Firefox 129+)
+   Fallback CSS pour navigateurs anciens via .theme-switching class */
+
+/* View Transitions API (méthode moderne) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Fallback CSS : transitions appliquées en permanence sur toutes les couleurs.
+   Spécificité élevée pour battre les transitions locales (.card, .btn, etc.) */
+html body,
+html body *,
+html body *::before,
+html body *::after {
+  transition-property: background-color, color, border-color, fill, stroke, box-shadow;
+  transition-duration: 0.35s;
   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Restaurer les transitions courtes/rapides sur les hovers (boutons, cards interactives)
+   pour qu'elles restent snappy et ne soient pas ralenties par notre 0.35s */
+.btn-primary, .btn-outline, .nav-link, .lang-btn, .filter-btn,
+.theme-toggle, .modal-close, .vtab, .viewer-action-btn,
+.tech-pill, .footer-social, .form-submit {
+  transition-duration: 0.2s !important;
 }
 img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }

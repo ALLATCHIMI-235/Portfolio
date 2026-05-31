@@ -1133,9 +1133,22 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('themeToggle').onclick = () => {
     const cur = document.documentElement.getAttribute('data-theme');
     const next = cur === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    updateThemeIcon(next);
+
+    // Helper: applique le changement de thème
+    const applyTheme = () => {
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateThemeIcon(next);
+    };
+
+    // Si le navigateur supporte la View Transitions API (Chrome 111+, Safari 18+)
+    // → fade synchronisé natif, ultra-fluide
+    if (document.startViewTransition) {
+      document.startViewTransition(applyTheme);
+    } else {
+      // Fallback CSS : les transitions CSS prennent le relais
+      applyTheme();
+    }
   };
   const savedLang = localStorage.getItem('lang') || 'fr';
   currentLang = savedLang;
