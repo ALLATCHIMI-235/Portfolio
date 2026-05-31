@@ -3,18 +3,12 @@
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.6; overflow-x: hidden; position: relative; min-height: 100vh; }
 
-/* Transition synchrone du thème : tous les éléments themables changent d'un coup
-   On cible spécifiquement background-color, color, border-color, fill, stroke
-   (PAS "transition: all" qui casserait les animations de hover) */
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition: background-color 0.35s cubic-bezier(0.215, 0.61, 0.355, 1),
-              color 0.35s cubic-bezier(0.215, 0.61, 0.355, 1),
-              border-color 0.35s cubic-bezier(0.215, 0.61, 0.355, 1),
-              fill 0.35s cubic-bezier(0.215, 0.61, 0.355, 1),
-              stroke 0.35s cubic-bezier(0.215, 0.61, 0.355, 1),
-              box-shadow 0.35s cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+/* Transition globale pour le switch de thème — appliquée en permanence sur les propriétés
+   qui changent avec le thème. Ne touche PAS aux transforms/opacity (hovers, reveals au scroll). */
+*, *::before, *::after {
+  transition-property: background-color, color, border-color, fill, stroke;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }

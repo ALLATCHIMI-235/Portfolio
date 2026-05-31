@@ -1127,21 +1127,15 @@ function showStatus(el, msg, type) { el.className = 'form-status ' + type; el.te
 
 /* ====================== EVENTS ====================== */
 document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme') || 'light';
+  const savedTheme = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
   updateThemeIcon(savedTheme);
   document.getElementById('themeToggle').onclick = () => {
     const cur = document.documentElement.getAttribute('data-theme');
     const next = cur === 'light' ? 'dark' : 'light';
-    // Active la transition globale synchronisée juste pour le switch
-    document.documentElement.classList.add('theme-transitioning');
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     updateThemeIcon(next);
-    // Désactive après l'animation pour ne pas polluer les hovers/animations
-    setTimeout(() => {
-      document.documentElement.classList.remove('theme-transitioning');
-    }, 400);
   };
   const savedLang = localStorage.getItem('lang') || 'fr';
   currentLang = savedLang;
