@@ -1101,6 +1101,9 @@ function setupContactForm() {
           to_email: 'abderamaneherendjimi@gmail.com'
         });
       } else {
+        // FormSubmit AJAX endpoint
+        // Note : ne PAS ajouter "Accept: application/json" — ça force un preflight CORS
+        // qui peut échouer. FormSubmit gère le content negotiation automatiquement.
         const fd = new FormData();
         fd.append('name', data.name);
         fd.append('email', data.email);
@@ -1110,13 +1113,25 @@ function setupContactForm() {
         fd.append('_template', 'box');
         fd.append('message', data.message);
         const resp = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`, {
-          method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+          method: 'POST',
+          body: fd
         });
-        if (!resp.ok) throw new Error('Network error');
+        if (!resp.ok) {
+          const errBody = await resp.text().catch(() => '');
+          console.error('FormSubmit error:', resp.status, errBody);
+          throw new Error(`FormSubmit returned ${resp.status}`);
+        }
+        const json = await resp.json().catch(() => ({}));
+        if (json.success === 'false' || json.success === false) {
+          console.error('FormSubmit success=false:', json);
+          throw new Error(json.message || 'FormSubmit rejected');
+        }
       }
       showStatus(status, t['contact.success'], 'success');
       form.reset();
     } catch (err) {
+      console.error('[Contact form] Error:', err);
+      console.error('[Contact form] Stack:', err.stack);
       showStatus(status, t['contact.error'], 'error');
     } finally {
       submitBtn.disabled = false;
