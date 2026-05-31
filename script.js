@@ -1093,6 +1093,7 @@ function setupContactForm() {
     }
     submitBtn.disabled = true;
     showStatus(status, t['contact.sending'], 'loading');
+
     try {
       if (useEmailJS) {
         await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
@@ -1100,39 +1101,47 @@ function setupContactForm() {
           subject: data.subject, message: data.message,
           to_email: 'abderamaneherendjimi@gmail.com'
         });
+        showStatus(status, t['contact.success'], 'success');
+        form.reset();
       } else {
-        // FormSubmit AJAX endpoint
-        // Note : ne PAS ajouter "Accept: application/json" — ça force un preflight CORS
-        // qui peut échouer. FormSubmit gère le content negotiation automatiquement.
-        const fd = new FormData();
-        fd.append('name', data.name);
-        fd.append('email', data.email);
-        fd.append('_subject', `[Portfolio] ${data.subject}`);
-        fd.append('_replyto', data.email);
-        fd.append('_captcha', 'false');
-        fd.append('_template', 'box');
-        fd.append('message', data.message);
+        // FormSubmit AJAX — version simplifiée pour éviter les bugs récents
+        // 1. JSON est plus fiable que FormData pour FormSubmit AJAX
+        // 2. Pas de _template (cause des rejets)
+        // 3. Pas de _replyto (déprécié, l'email est pris du champ "email")
+        const payload = {
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+          _subject: `[Portfolio] ${data.subject}`,
+          _captcha: 'false'
+        };
         const resp = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`, {
           method: 'POST',
-          body: fd
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
         });
-        if (!resp.ok) {
-          const errBody = await resp.text().catch(() => '');
-          console.error('FormSubmit error:', resp.status, errBody);
-          throw new Error(`FormSubmit returned ${resp.status}`);
+        const responseText = await resp.text();
+        let json = {};
+        try { json = JSON.parse(responseText); } catch (e) {
+          console.warn('[Contact] Response non-JSON:', responseText.slice(0, 200));
         }
-        const json = await resp.json().catch(() => ({}));
-        if (json.success === 'false' || json.success === false) {
-          console.error('FormSubmit success=false:', json);
-          throw new Error(json.message || 'FormSubmit rejected');
+        if (!resp.ok || json.success === 'false' || json.success === false) {
+          console.error('[Contact] FormSubmit error:', { status: resp.status, body: json, raw: responseText.slice(0, 300) });
+          throw new Error(json.message || `HTTP ${resp.status}`);
         }
+        // Première soumission : FormSubmit retourne success=true + message d'activation
+        // Soumissions suivantes (après activation) : message direct dans la boîte
+        showStatus(status, t['contact.success'], 'success');
+        form.reset();
       }
-      showStatus(status, t['contact.success'], 'success');
-      form.reset();
     } catch (err) {
       console.error('[Contact form] Error:', err);
-      console.error('[Contact form] Stack:', err.stack);
-      showStatus(status, t['contact.error'], 'error');
+      const errMsg = (err && err.message) ? ` (${err.message})` : '';
+      showStatus(status, t['contact.error'] + errMsg, 'error');
     } finally {
       submitBtn.disabled = false;
     }
